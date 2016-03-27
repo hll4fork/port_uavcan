@@ -1,0 +1,6 @@
+[submodule "libuavcan"]
+	path = libuavcan
+	url = https://github.com/UAVCAN/libuavcan
+[submodule "zubax_chibios"]
+	path = zubax_chibios
+	url = https://github.com/Zubax/zubax_chibios
