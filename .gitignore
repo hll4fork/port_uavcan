@@ -1,0 +1,6 @@
+.settings/
+.project
+.cproject
+build/
+dsdlc_generated/
+.dep/
