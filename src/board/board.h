@@ -105,8 +105,8 @@
 #define GPIOC_OSC32_IN              14U
 #define GPIOC_OSC32_OUT             15U
 
-#define GPIOD_FMC_D2                0U
-#define GPIOD_FMC_D3                1U
+#define GPIOD_CAN1_RX               0U
+#define GPIOD_CAN1_TX               1U
 #define GPIOD_PIN2                  2U
 #define GPIOD_LCD_G7                3U
 #define GPIOD_PIN4                  4U
@@ -583,8 +583,8 @@
 /*
  * GPIOD setup:
  *
- * PD0  - FMC_D2                    (alternate 12).
- * PD1  - FMC_D3                    (alternate 12).
+ * PD0  - CAN1RX                    (alternate 9).
+ * PD1  - CAN1TX                    (alternate 9).
  * PD2  - PIN2                      (input pullup).
  * PD3  - LCD_G7                    (alternate 14).
  * PD4  - PIN4                      (input pullup).
@@ -600,8 +600,8 @@
  * PD14 - FMC_D0                    (alternate 12).
  * PD15 - FMC_D1                    (alternate 12).
  */
-#define VAL_GPIOD_MODER             (PIN_MODE_ALTERNATE(GPIOD_FMC_D2) |     \
-                                     PIN_MODE_ALTERNATE(GPIOD_FMC_D3) |     \
+#define VAL_GPIOD_MODER             (PIN_MODE_ALTERNATE(GPIOD_CAN1_RX) |     \
+                                     PIN_MODE_ALTERNATE(GPIOD_CAN1_TX) |     \
                                      PIN_MODE_INPUT(GPIOD_PIN2) |           \
                                      PIN_MODE_ALTERNATE(GPIOD_LCD_G7) |     \
                                      PIN_MODE_INPUT(GPIOD_PIN4) |           \
@@ -616,8 +616,8 @@
                                      PIN_MODE_OUTPUT(GPIOD_LCD_WRX) |       \
                                      PIN_MODE_ALTERNATE(GPIOD_FMC_D0) |     \
                                      PIN_MODE_ALTERNATE(GPIOD_FMC_D1))
-#define VAL_GPIOD_OTYPER            (PIN_OTYPE_PUSHPULL(GPIOD_FMC_D2) |     \
-                                     PIN_OTYPE_PUSHPULL(GPIOD_FMC_D3) |     \
+#define VAL_GPIOD_OTYPER            (PIN_OTYPE_PUSHPULL(GPIOD_CAN1_RX) |     \
+                                     PIN_OTYPE_PUSHPULL(GPIOD_CAN1_TX) |     \
                                      PIN_OTYPE_PUSHPULL(GPIOD_PIN2) |       \
                                      PIN_OTYPE_PUSHPULL(GPIOD_LCD_G7) |     \
                                      PIN_OTYPE_PUSHPULL(GPIOD_PIN4) |       \
@@ -632,8 +632,8 @@
                                      PIN_OTYPE_PUSHPULL(GPIOD_LCD_WRX) |    \
                                      PIN_OTYPE_PUSHPULL(GPIOD_FMC_D0) |     \
                                      PIN_OTYPE_PUSHPULL(GPIOD_FMC_D1))
-#define VAL_GPIOD_OSPEEDR           (PIN_OSPEED_100M(GPIOD_FMC_D2) |        \
-                                     PIN_OSPEED_100M(GPIOD_FMC_D3) |        \
+#define VAL_GPIOD_OSPEEDR           (PIN_OSPEED_100M(GPIOD_CAN1_RX) |        \
+                                     PIN_OSPEED_100M(GPIOD_CAN1_TX) |        \
                                      PIN_OSPEED_2M(GPIOD_PIN2) |            \
                                      PIN_OSPEED_100M(GPIOD_LCD_G7) |        \
                                      PIN_OSPEED_2M(GPIOD_PIN4) |            \
@@ -648,8 +648,8 @@
                                      PIN_OSPEED_100M(GPIOD_LCD_WRX) |       \
                                      PIN_OSPEED_100M(GPIOD_FMC_D0) |        \
                                      PIN_OSPEED_100M(GPIOD_FMC_D1))
-#define VAL_GPIOD_PUPDR             (PIN_PUPDR_FLOATING(GPIOD_FMC_D2) |     \
-                                     PIN_PUPDR_FLOATING(GPIOD_FMC_D3) |     \
+#define VAL_GPIOD_PUPDR             (PIN_PUPDR_FLOATING(GPIOD_CAN1_RX) |     \
+                                     PIN_PUPDR_FLOATING(GPIOD_CAN1_TX) |     \
                                      PIN_PUPDR_PULLUP(GPIOD_PIN2) |         \
                                      PIN_PUPDR_FLOATING(GPIOD_LCD_G7) |     \
                                      PIN_PUPDR_PULLUP(GPIOD_PIN4) |         \
@@ -664,8 +664,8 @@
                                      PIN_PUPDR_FLOATING(GPIOD_LCD_WRX) |    \
                                      PIN_PUPDR_FLOATING(GPIOD_FMC_D0) |     \
                                      PIN_PUPDR_FLOATING(GPIOD_FMC_D1))
-#define VAL_GPIOD_ODR               (PIN_ODR_HIGH(GPIOD_FMC_D2) |           \
-                                     PIN_ODR_HIGH(GPIOD_FMC_D3) |           \
+#define VAL_GPIOD_ODR               (PIN_ODR_HIGH(GPIOD_CAN1_RX) |           \
+                                     PIN_ODR_HIGH(GPIOD_CAN1_TX) |           \
                                      PIN_ODR_HIGH(GPIOD_PIN2) |             \
                                      PIN_ODR_HIGH(GPIOD_LCD_G7) |           \
                                      PIN_ODR_HIGH(GPIOD_PIN4) |             \
@@ -680,8 +680,8 @@
                                      PIN_ODR_HIGH(GPIOD_LCD_WRX) |          \
                                      PIN_ODR_HIGH(GPIOD_FMC_D0) |           \
                                      PIN_ODR_HIGH(GPIOD_FMC_D1))
-#define VAL_GPIOD_AFRL              (PIN_AFIO_AF(GPIOD_FMC_D2, 12) |        \
-                                     PIN_AFIO_AF(GPIOD_FMC_D3, 12) |        \
+#define VAL_GPIOD_AFRL              (PIN_AFIO_AF(GPIOD_CAN1_RX, 9) |        \
+                                     PIN_AFIO_AF(GPIOD_CAN1_TX, 9) |        \
                                      PIN_AFIO_AF(GPIOD_PIN2, 0) |           \
                                      PIN_AFIO_AF(GPIOD_LCD_G7, 14) |        \
                                      PIN_AFIO_AF(GPIOD_PIN4, 0) |           \
