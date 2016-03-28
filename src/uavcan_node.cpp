@@ -149,6 +149,7 @@ public:
 
             lowsyslog("CAN errors: %lu\n",
                       static_cast<unsigned long>(can.driver.getIface(0)->getErrorCount()));
+            palTogglePad(GPIOG, GPIOG_LED3_GREEN);
         }
     }
 } uavcan_node_thread;

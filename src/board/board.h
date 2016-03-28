@@ -81,8 +81,8 @@
 #define GPIOB_PIN7                  7U
 #define GPIOB_LCD_B6                8U
 #define GPIOB_LCD_B7                9U
-#define GPIOB_LCD_G4                10U
-#define GPIOB_LCD_G5                11U
+#define GPIOB_USART3_TX             10U
+#define GPIOB_USART3_RX             11U
 #define GPIOB_OTG_HS_ID             12U
 #define GPIOB_OTG_HS_VBUS           13U
 #define GPIOB_OTG_HS_DM             14U
@@ -359,8 +359,8 @@
  * PB7  - PIN7                      (input pullup).
  * PB8  - LCD_B6                    (alternate 14).
  * PB9  - LCD_B7                    (alternate 14).
- * PB10 - LCD_G4                    (alternate 14).
- * PB11 - LCD_G5                    (alternate 14).
+ * PB10 - USART3_TX                 (alternate 7).
+ * PB11 - USART3_RX                 (alternate 7).
  * PB12 - OTG_HS_ID                 (alternate 12).
  * PB13 - OTG_HS_VBUS               (input pulldown).
  * PB14 - OTG_HS_DM                 (alternate 12).
@@ -376,8 +376,8 @@
                                      PIN_MODE_INPUT(GPIOB_PIN7) |           \
                                      PIN_MODE_ALTERNATE(GPIOB_LCD_B6) |     \
                                      PIN_MODE_ALTERNATE(GPIOB_LCD_B7) |     \
-                                     PIN_MODE_ALTERNATE(GPIOB_LCD_G4) |     \
-                                     PIN_MODE_ALTERNATE(GPIOB_LCD_G5) |     \
+                                     PIN_MODE_ALTERNATE(GPIOB_USART3_TX) |  \
+                                     PIN_MODE_ALTERNATE(GPIOB_USART3_RX) |  \
                                      PIN_MODE_ALTERNATE(GPIOB_OTG_HS_ID) |  \
                                      PIN_MODE_INPUT(GPIOB_OTG_HS_VBUS) |    \
                                      PIN_MODE_ALTERNATE(GPIOB_OTG_HS_DM) |  \
@@ -392,8 +392,8 @@
                                      PIN_OTYPE_PUSHPULL(GPIOB_PIN7) |       \
                                      PIN_OTYPE_PUSHPULL(GPIOB_LCD_B6) |     \
                                      PIN_OTYPE_PUSHPULL(GPIOB_LCD_B7) |     \
-                                     PIN_OTYPE_PUSHPULL(GPIOB_LCD_G4) |     \
-                                     PIN_OTYPE_PUSHPULL(GPIOB_LCD_G5) |     \
+                                     PIN_OTYPE_PUSHPULL(GPIOB_USART3_TX) |  \
+                                     PIN_OTYPE_PUSHPULL(GPIOB_USART3_RX) |  \
                                      PIN_OTYPE_PUSHPULL(GPIOB_OTG_HS_ID) |  \
                                      PIN_OTYPE_PUSHPULL(GPIOB_OTG_HS_VBUS) |\
                                      PIN_OTYPE_PUSHPULL(GPIOB_OTG_HS_DM) |  \
@@ -408,8 +408,8 @@
                                      PIN_OSPEED_2M(GPIOB_PIN7) |            \
                                      PIN_OSPEED_100M(GPIOB_LCD_B6) |        \
                                      PIN_OSPEED_100M(GPIOB_LCD_B7) |        \
-                                     PIN_OSPEED_100M(GPIOB_LCD_G4) |        \
-                                     PIN_OSPEED_100M(GPIOB_LCD_G5) |        \
+                                     PIN_OSPEED_100M(GPIOB_USART3_TX) |     \
+                                     PIN_OSPEED_100M(GPIOB_USART3_RX) |     \
                                      PIN_OSPEED_100M(GPIOB_OTG_HS_ID) |     \
                                      PIN_OSPEED_2M(GPIOB_OTG_HS_VBUS) |     \
                                      PIN_OSPEED_100M(GPIOB_OTG_HS_DM) |     \
@@ -424,8 +424,8 @@
                                      PIN_PUPDR_PULLUP(GPIOB_PIN7) |         \
                                      PIN_PUPDR_FLOATING(GPIOB_LCD_B6) |     \
                                      PIN_PUPDR_FLOATING(GPIOB_LCD_B7) |     \
-                                     PIN_PUPDR_FLOATING(GPIOB_LCD_G4) |     \
-                                     PIN_PUPDR_FLOATING(GPIOB_LCD_G5) |     \
+                                     PIN_PUPDR_FLOATING(GPIOB_USART3_TX) |  \
+                                     PIN_PUPDR_PULLUP(GPIOB_USART3_RX) |    \
                                      PIN_PUPDR_FLOATING(GPIOB_OTG_HS_ID) |  \
                                      PIN_PUPDR_PULLDOWN(GPIOB_OTG_HS_VBUS) |\
                                      PIN_PUPDR_FLOATING(GPIOB_OTG_HS_DM) |  \
@@ -440,8 +440,8 @@
                                      PIN_ODR_HIGH(GPIOB_PIN7) |             \
                                      PIN_ODR_HIGH(GPIOB_LCD_B6) |           \
                                      PIN_ODR_HIGH(GPIOB_LCD_B7) |           \
-                                     PIN_ODR_HIGH(GPIOB_LCD_G4) |           \
-                                     PIN_ODR_HIGH(GPIOB_LCD_G5) |           \
+                                     PIN_ODR_HIGH(GPIOB_USART3_TX) |        \
+                                     PIN_ODR_HIGH(GPIOB_USART3_RX) |        \
                                      PIN_ODR_HIGH(GPIOB_OTG_HS_ID) |        \
                                      PIN_ODR_HIGH(GPIOB_OTG_HS_VBUS) |      \
                                      PIN_ODR_HIGH(GPIOB_OTG_HS_DM) |        \
@@ -456,8 +456,8 @@
                                      PIN_AFIO_AF(GPIOB_PIN7, 0))
 #define VAL_GPIOB_AFRH              (PIN_AFIO_AF(GPIOB_LCD_B6, 14) |        \
                                      PIN_AFIO_AF(GPIOB_LCD_B7, 14) |        \
-                                     PIN_AFIO_AF(GPIOB_LCD_G4, 14) |        \
-                                     PIN_AFIO_AF(GPIOB_LCD_G5, 14) |        \
+                                     PIN_AFIO_AF(GPIOB_USART3_TX, 7) |      \
+                                     PIN_AFIO_AF(GPIOB_USART3_RX, 7) |      \
                                      PIN_AFIO_AF(GPIOB_OTG_HS_ID, 12) |     \
                                      PIN_AFIO_AF(GPIOB_OTG_HS_VBUS, 0) |    \
                                      PIN_AFIO_AF(GPIOB_OTG_HS_DM, 12) |     \
