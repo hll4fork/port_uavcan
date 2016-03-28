@@ -97,7 +97,7 @@ public:
         Node& node = app::getNode();
 
         node.setNodeID(UAVCAN_NODE_ID);
-        node.setName("org.uavcan.cvra_test_stm32f407");
+        node.setName("org.uavcan.stm32f429");
 
         // TODO: fill software version info (version number, VCS commit hash, ...)
         // TODO: fill hardware version info (version number, unique ID)
@@ -135,7 +135,7 @@ public:
          * Main loop
          */
         lowsyslog("UAVCAN node started\n");
-        node.setHealthOk();
+        node.setModeOperational();
         while (true)
         {
             const int spin_res = node.spin(uavcan::MonotonicDuration::fromMSec(1000));
