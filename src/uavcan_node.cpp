@@ -33,6 +33,11 @@ Node& getNode()
     return *node_;
 }
 
+void ledSet(bool state)
+{
+    palWritePad(GPIOG, GPIOG_LED3_GREEN, state);
+}
+
 #if __GNUC__
 __attribute__((noreturn))
 #endif
@@ -41,6 +46,9 @@ void die(int status)
     lowsyslog("Now I am dead x_x %i\n", status);
     while (1)
     {
+    	ledSet(false);
+        chThdSleepMilliseconds(500);
+        ledSet(true);
         chThdSleepMilliseconds(500);
     }
 }
@@ -66,7 +74,7 @@ void node_status_cb(const uavcan::ReceivedDataStructure<uavcan::protocol::NodeSt
             st_name = "UNKNOWN_STATUS";
             break;
     }
-    //palTogglePad(GPIOC, GPIOC_LED);
+    palTogglePad(GPIOG, GPIOG_LED3_GREEN);
     lowsyslog("NodeStatus from %d: %u (%s)\n", msg.getSrcNodeID().get(), st, st_name);
 }
 
