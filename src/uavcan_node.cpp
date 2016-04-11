@@ -124,10 +124,10 @@ public:
         /*
          * NodeStatus subscriber
          */
-        uavcan::Subscriber<uavcan::protocol::NodeStatus> ns_sub(node);
-        const int ns_sub_start_res = ns_sub.start(node_status_cb);
-        if (ns_sub_start_res < 0) {
-            lowsyslog("error NodeStatus subscriber init");
+        uavcan::Publisher<uavcan::protocol::NodeStatus> ns_pub(node);
+        const int ns_pub_start_res = ns_pub.init();
+        if (ns_pub_start_res < 0) {
+            lowsyslog("error NodeStatus publisher init");
             while (1);
         }
 
@@ -143,7 +143,13 @@ public:
             {
                 lowsyslog("Spin failure: %i\n", spin_res);
             }
+            uavcan::protocol::NodeStatus ns_msg;
+            ns_msg.mode = uavcan::protocol::NodeStatus::HEALTH_OK;
 
+            const int pub_res = ns_pub.broadcast(ns_msg);
+            if(pub_res <0){
+            	lowsyslog("Node Status Broadcast failure:\n");
+            }
             lowsyslog("Memory usage: used=%u free=%u\n",
                       node.getAllocator().getNumUsedBlocks(), node.getAllocator().getNumFreeBlocks());
 
