@@ -6,7 +6,7 @@
 #include <ch.hpp>
 #include <hal.h>
 #include <uavcan_stm32/uavcan_stm32.hpp>
-#include <uavcan/protocol/NodeStatus.hpp>
+#include <uavcan/equipment/actuator/Status.hpp>
 
 #include "debug.h"
 #include <errno.h>
@@ -53,31 +53,6 @@ void die(int status)
     }
 }
 
-void node_status_cb(const uavcan::ReceivedDataStructure<uavcan::protocol::NodeStatus>& msg)
-{
-    const uint8_t st = msg.health;
-    const char *st_name;
-    switch (st) {
-        case 0:
-            st_name = "HEALTH_OK";
-            break;
-        case 1:
-            st_name = "HEALTH_WARNING";
-            break;
-        case 2:
-            st_name = "HEALTH_ERROR";
-            break;
-        case 3:
-            st_name = "HEALTH_CRITICAL";
-            break;
-        default:
-            st_name = "UNKNOWN_STATUS";
-            break;
-    }
-    palTogglePad(GPIOG, GPIOG_LED3_GREEN);
-    lowsyslog("NodeStatus from %d: %u (%s)\n", msg.getSrcNodeID().get(), st, st_name);
-}
-
 class : public chibios_rt::BaseStaticThread<8192>
 {
 public:
@@ -99,9 +74,6 @@ public:
         node.setNodeID(UAVCAN_NODE_ID);
         node.setName("org.uavcan.stm32f429");
 
-        // TODO: fill software version info (version number, VCS commit hash, ...)
-        // TODO: fill hardware version info (version number, unique ID)
-
         /*
          * Initializing the UAVCAN node - this may take a while
          */
@@ -121,15 +93,14 @@ public:
             chThdSleepMilliseconds(1000);
         }
 
-        /*
-         * NodeStatus subscriber
-         */
-        uavcan::Publisher<uavcan::protocol::NodeStatus> ns_pub(node);
-        const int ns_pub_start_res = ns_pub.init();
-        if (ns_pub_start_res < 0) {
-            lowsyslog("error NodeStatus publisher init");
+        // publisher uavcan::equipment::actuator::Status msg
+        uavcan::Publisher<uavcan::equipment::actuator::Status> s_pub(node);
+        const int s_pub_start_res = s_pub.init();
+        if (s_pub_start_res < 0) {
+            lowsyslog("error Status publisher init");
             while (1);
         }
+        // publisher uavcan::equipment::actuator::Status msg
 
         /*
          * Main loop
@@ -143,18 +114,21 @@ public:
             {
                 lowsyslog("Spin failure: %i\n", spin_res);
             }
-            uavcan::protocol::NodeStatus ns_msg;
-            ns_msg.mode = uavcan::protocol::NodeStatus::HEALTH_OK;
 
-            const int pub_res = ns_pub.broadcast(ns_msg);
-            if(pub_res <0){
-            	lowsyslog("Node Status Broadcast failure:\n");
+            // publisher uavcan::equipment::actuator::Command msg
+            uavcan::equipment::actuator::Status s_msg;
+            s_msg.actuator_id = 1;
+            s_msg.position = 1.0f;
+            s_msg.force = 1.0f;
+            s_msg.speed = 1.0f;
+            s_msg.power_rating_pct = 0;
+
+            const int s_pub_res = s_pub.broadcast(s_msg);
+            if(s_pub_res <0){
+            	lowsyslog("Status Broadcast failure:\n");
             }
-            lowsyslog("Memory usage: used=%u free=%u\n",
-                      node.getAllocator().getNumUsedBlocks(), node.getAllocator().getNumFreeBlocks());
+            // publisher uavcan::equipment::actuator::Command msg
 
-            lowsyslog("CAN errors: %lu\n",
-                      static_cast<unsigned long>(can.driver.getIface(0)->getErrorCount()));
             palTogglePad(GPIOG, GPIOG_LED3_GREEN);
         }
     }
