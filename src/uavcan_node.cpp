@@ -7,11 +7,12 @@
 #include <hal.h>
 #include <uavcan_stm32/uavcan_stm32.hpp>
 #include <uavcan/equipment/actuator/Status.hpp>
+#include <uavcan/equipment/air_data/StaticPressure.hpp>
 
 #include "debug.h"
 #include <errno.h>
 
-#define UAVCAN_NODE_ID 1
+#define UAVCAN_NODE_ID 11
 
 namespace app
 {
@@ -93,14 +94,14 @@ public:
             chThdSleepMilliseconds(1000);
         }
 
-        // publisher uavcan::equipment::actuator::Status msg
-        uavcan::Publisher<uavcan::equipment::actuator::Status> s_pub(node);
+        // publisher uavcan::equipment::air_data::StaticPressure
+        uavcan::Publisher<uavcan::equipment::air_data::StaticPressure> s_pub(node);
         const int s_pub_start_res = s_pub.init();
         if (s_pub_start_res < 0) {
             lowsyslog("error Status publisher init");
             while (1);
         }
-        // publisher uavcan::equipment::actuator::Status msg
+        // publisher uavcan::equipment::air_data::StaticPressure msg
 
         /*
          * Main loop
@@ -115,19 +116,16 @@ public:
                 lowsyslog("Spin failure: %i\n", spin_res);
             }
 
-            // publisher uavcan::equipment::actuator::Command msg
-            uavcan::equipment::actuator::Status s_msg;
-            s_msg.actuator_id = 1;
-            s_msg.position = 1.0f;
-            s_msg.force = 1.0f;
-            s_msg.speed = 1.0f;
-            s_msg.power_rating_pct = 0;
+            // publisher uavcan::equipment::air_data::StaticPressure msg
+            uavcan::equipment::air_data::StaticPressure s_msg;
+            s_msg.static_pressure = 1.0f;
+            s_msg.static_pressure_variance = 2.0f;
 
             const int s_pub_res = s_pub.broadcast(s_msg);
             if(s_pub_res <0){
             	lowsyslog("Status Broadcast failure:\n");
             }
-            // publisher uavcan::equipment::actuator::Command msg
+            // publisher uavcan::equipment::msg_test::MsgTest msg
 
             palTogglePad(GPIOG, GPIOG_LED3_GREEN);
         }
